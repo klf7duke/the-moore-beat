@@ -201,6 +201,15 @@ const EVENTS = [
     link: "https://homeofgolf.com/peach-week/restaurant-competition/"
   },
   {
+    title: "Cocktail Class with Brooke McClure",
+    date: "2026-07-28",
+    time: "6:00 PM",
+    town: "Aberdeen",
+    category: "Food & Drink",
+    description: "Poplar Place's first Cocktail Making Class — learn the history and art of crafting two classics, the Mary Pickford and the Last Word. Includes a welcome glass of champagne and light snacks. Tickets $75.",
+    link: "https://www.instagram.com/poplarplacenc/"
+  },
+  {
     title: "Autumnfest",
     date: "2026-10-03",
     time: "9:00 AM – 4:00 PM",
