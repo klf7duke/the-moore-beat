@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live Music — The Moore Beat | Moore County, NC</title>
+<meta name="description" content="Live music in Moore County, NC — upcoming shows plus the venues where you'll always find a band playing across Pinehurst, Southern Pines, and Aberdeen." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1e1a;--bg:#f7f5ef;--bg-alt:#f0ece2;--card:#ffffff;--muted:#787a6f;--line:#e8e3d8;
+    --green:#2f5d4a;--green-d:#244739;--green-soft:#eaf0eb;
+    --gold:#c9a24a;--gold-d:#b1872f;--gold-ink:#8f6c1d;--gold-soft:#f5edd7;
+    --display:'Fraunces','Georgia','Times New Roman',serif;
+    --shadow:0 8px 24px rgba(28,30,26,.07);--shadow-h:0 18px 40px rgba(28,30,26,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(247,245,239,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1140px;margin:0 auto;gap:10px;flex-wrap:wrap}
+  .brand-wrap{display:flex;flex-direction:column;line-height:1}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.55rem;letter-spacing:-.3px;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .brand b{color:var(--gold-d)}
+  .brand-tag{font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  nav.links{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--ink);font-weight:500;font-size:.9rem;opacity:.8}
+  nav.links a:hover,nav.links a.active{opacity:1;color:var(--green)}
+  nav.links a.active{font-weight:700}
+  .btn{background:var(--green);color:#fff;padding:11px 21px;border-radius:9px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.18s;display:inline-block}
+  .btn:hover{background:var(--green-d);color:#fff}
+  .btn.gold{background:var(--gold);color:#241c06}
+  .btn.gold:hover{background:var(--gold-d)}
+
+  .page-head{padding:54px 0 8px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
+  .page-head h1{font-family:var(--display);font-size:2.7rem;letter-spacing:-.6px;font-weight:600;line-height:1.05}
+  .page-head p{color:var(--muted);margin-top:10px;max-width:660px}
+
+  section{padding:22px 0 30px}
+  section.last{padding-bottom:90px}
+  .sec-head{margin:22px 0 22px}
+  .sec-head h2{font-family:var(--display);font-size:1.85rem;font-weight:600;letter-spacing:-.4px}
+  .sec-head p{color:var(--muted);margin-top:4px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);transition:transform .16s,box-shadow .16s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h)}
+  .card .topline{height:3px;width:100%;background:var(--green)}
+  .card .body{padding:22px;display:flex;flex-direction:column;flex-grow:1}
+  .when{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+  .datebox{background:var(--ink);color:#fff;border-radius:10px;text-align:center;padding:9px 0;width:56px;flex-shrink:0;line-height:1.05}
+  .datebox .d{font-family:var(--display);font-size:1.4rem;font-weight:600}
+  .datebox .m{font-size:.62rem;text-transform:uppercase;letter-spacing:1.2px;opacity:.8}
+  .tag{align-self:flex-start;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#fff;background:var(--green);padding:4px 10px;border-radius:6px;margin-bottom:6px}
+  .card h3{font-size:1.18rem;margin:6px 0 3px;font-weight:600;letter-spacing:-.2px}
+  .meta{font-size:.88rem;color:var(--muted);font-weight:600}
+  p.desc{margin-top:10px;color:#55574e;font-size:.94rem;flex-grow:1}
+  a.more{margin-top:14px;font-weight:600;font-size:.88rem;color:var(--green)}
+  .when-pill{font-size:.7rem;font-weight:700;letter-spacing:.4px;color:var(--gold-ink);background:var(--gold-soft);padding:4px 10px;border-radius:999px;align-self:flex-start;margin-bottom:8px}
+  .none{color:var(--muted);font-style:italic;padding:6px 0 0}
+
+  .venues{background:var(--bg-alt)}
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:42px 0;font-size:.9rem;text-align:center}
+  footer a{color:rgba(255,255,255,.82)}
+  footer a:hover{color:#fff}
+
+  /* ---------- Mobile menu ---------- */
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:600px){
+    .menu-btn{display:flex}
+    .nav>.btn{display:none}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;box-shadow:0 14px 30px rgba(28,30,26,.12);z-index:70}
+    nav.links.open{display:flex}
+    nav.links a{width:100%;padding:13px 24px;font-size:1.02rem;opacity:1;border-bottom:1px solid var(--line)}
+    nav.links a:last-child{border-bottom:none}
+  }
+  @media(max-width:600px){
+    nav.links{display:none}
+    .page-head h1{font-size:2.05rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" style="text-decoration:none">
+      <div class="brand-wrap">
+        <div class="brand">The Moore&nbsp;<b>Beat</b></div>
+        <div class="brand-tag">What's happening in Moore County, NC</div>
+      </div>
+    </a>
+    <nav class="links" id="navMenu" onclick="if(event.target.tagName==='A'){this.classList.remove('open');document.querySelector('.menu-btn').classList.remove('open')}">
+      <a href="index.html#events">Events</a>
+      <a href="weekend.html">This Weekend</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="index.html#eat">Eat &amp; Drink</a>
+      <a href="happyhour.html">Happy Hours</a>
+      <a href="livemusic.html" class="active">Live Music</a>
+      <a href="index.html#businesses">Local Finds</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <a href="weekend.html" class="btn gold">This Weekend</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Hear Something Live</div>
+    <h1>Live Music in Moore County</h1>
+    <p>The Sandhills has become a little Nashville — singer-songwriters at the pubs midweek, full bands on the weekends. Here's what's coming up, and where to always find a show.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Upcoming Shows</h2>
+      <p>Dated live-music events on the calendar right now.</p>
+    </div>
+    <div id="showsGrid"></div>
+  </div>
+</section>
+
+<section class="venues last">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Where to Find Live Music</h2>
+      <p>Venues with regular live music, even when nothing specific is on the calendar yet.</p>
+    </div>
+    <div id="venuesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
+    <p style="margin-top:8px"><a href="index.html">Home</a> · <a href="weekend.html">This Weekend</a> · <a href="happyhour.html">Happy Hours</a> · <a href="calendar.html">Calendar</a></p>
+    <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
+  </div>
+</footer>
+
+<script src="events.js"></script>
+<script>
+  const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const pd = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+  const fmtDate = s => pd(s).toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"});
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  // next upcoming occurrence for recurring events, else the event if still upcoming
+  function nextOccurrence(e){
+    if(e.repeat==="weekly"){
+      const except = e.except || [];
+      let cand = new Date(Math.max(pd(e.date).getTime(), today.getTime())); cand.setHours(0,0,0,0);
+      const wd = pd(e.date).getDay();
+      cand.setDate(cand.getDate() + ((wd - cand.getDay() + 7) % 7));
+      const until = pd(e.repeatUntil || e.date);
+      while(cand <= until){
+        const ds = `${cand.getFullYear()}-${String(cand.getMonth()+1).padStart(2,"0")}-${String(cand.getDate()).padStart(2,"0")}`;
+        if(!except.includes(ds)) return Object.assign({}, e, {date: ds});
+        cand.setDate(cand.getDate()+7);
+      }
+      return null;
+    }
+    return pd(e.date) >= today ? e : null;
+  }
+
+  // Upcoming live-music shows
+  const shows = (typeof EVENTS!=="undefined"?EVENTS:[])
+    .filter(e => e.livemusic)
+    .map(nextOccurrence).filter(Boolean)
+    .sort((a,b)=>pd(a.date)-pd(b.date));
+
+  const showsGrid = document.getElementById("showsGrid");
+  showsGrid.innerHTML = shows.length ? `<div class="grid">` + shows.map(e=>{
+    const dt = pd(e.date);
+    const link = e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+    return `<div class="card"><div class="topline"></div><div class="body">
+      <div class="when">
+        <div class="datebox"><div class="d">${dt.getDate()}</div><div class="m">${months[dt.getMonth()]}</div></div>
+        <div><h3 style="margin:0">${e.title}</h3><div class="meta">${fmtDate(e.date)} · ${e.time}</div></div>
+      </div>
+      <div class="meta" style="margin-top:6px">${e.town}</div>
+      <p class="desc">${e.description}</p>${link}
+    </div></div>`;
+  }).join("") + `</div>`
+  : `<p class="none">No dated shows on the calendar this moment — but check the venues below; several have music most weeks.</p>`;
+
+  // Venue guide
+  const venues = (typeof MUSIC_VENUES!=="undefined"?MUSIC_VENUES:[]);
+  document.getElementById("venuesGrid").innerHTML = `<div class="grid">` + venues.map(v=>{
+    const link = v.link?`<a class="more" href="${v.link}" target="_blank" rel="noopener">Visit →</a>`:"";
+    return `<div class="card"><div class="topline"></div><div class="body">
+      <span class="when-pill">${v.when}</span>
+      <h3>${v.name}</h3>
+      <div class="meta">${v.town}</div>
+      <p class="desc">${v.description}</p>${link}
+    </div></div>`;
+  }).join("") + `</div>`;
+</script>
+</body>
+</html>

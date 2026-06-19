@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Hours by Day — The Moore Beat | Moore County, NC</title>
+<meta name="description" content="Find today's happy hours and food & drink specials across Moore County, NC — pick a day and see what's on." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1e1a;--bg:#f7f5ef;--bg-alt:#f0ece2;--card:#ffffff;--muted:#787a6f;--line:#e8e3d8;
+    --green:#2f5d4a;--green-d:#244739;--green-soft:#eaf0eb;
+    --gold:#c9a24a;--gold-d:#b1872f;--gold-ink:#8f6c1d;--gold-soft:#f5edd7;
+    --display:'Fraunces','Georgia','Times New Roman',serif;
+    --shadow:0 8px 24px rgba(28,30,26,.07);--shadow-h:0 18px 40px rgba(28,30,26,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(247,245,239,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1140px;margin:0 auto;gap:10px;flex-wrap:wrap}
+  .brand-wrap{display:flex;flex-direction:column;line-height:1}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.55rem;letter-spacing:-.3px;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .brand b{color:var(--gold-d)}
+  .brand-tag{font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  nav.links{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--ink);font-weight:500;font-size:.9rem;opacity:.8}
+  nav.links a:hover,nav.links a.active{opacity:1;color:var(--green)}
+  nav.links a.active{font-weight:700}
+  .btn{background:var(--green);color:#fff;padding:11px 21px;border-radius:9px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.18s;display:inline-block}
+  .btn:hover{background:var(--green-d);color:#fff}
+  .btn.gold{background:var(--gold);color:#241c06}
+  .btn.gold:hover{background:var(--gold-d)}
+
+  .page-head{padding:54px 0 8px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
+  .page-head h1{font-family:var(--display);font-size:2.7rem;letter-spacing:-.6px;font-weight:600;line-height:1.05}
+  .page-head p{color:var(--muted);margin-top:10px;max-width:640px}
+
+  section{padding:24px 0 90px}
+  .daybar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+  .daybtn{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:.92rem;color:var(--ink);cursor:pointer;transition:.14s}
+  .daybtn:hover{border-color:var(--green)}
+  .daybtn.active{background:var(--green);color:#fff;border-color:var(--green)}
+  .daybtn .td{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;display:block;color:var(--gold-ink);font-weight:800}
+  .daybtn.active .td{color:var(--gold-soft)}
+
+  .daytitle{font-family:var(--display);font-size:1.6rem;font-weight:600;margin-bottom:20px;letter-spacing:-.3px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);transition:transform .16s,box-shadow .16s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h)}
+  .card .topline{height:3px;width:100%;background:var(--gold)}
+  .card .body{padding:22px;display:flex;flex-direction:column;flex-grow:1}
+  .tag{align-self:flex-start;font-size:.67rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#241c06;background:var(--gold);padding:4px 10px;border-radius:6px}
+  .card h3{font-size:1.2rem;margin:13px 0 3px;font-weight:600;letter-spacing:-.2px}
+  .meta{font-size:.88rem;color:var(--muted);font-weight:600}
+  p.offer{margin-top:11px;color:#44463e;font-size:1rem;font-weight:500;flex-grow:1}
+  .none{color:var(--muted);font-style:italic;padding:6px 0 0}
+
+  .disclaimer{margin-top:30px;font-size:.85rem;color:var(--muted);background:var(--bg-alt);border-radius:12px;padding:16px 18px}
+  .disclaimer a{font-weight:600}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:42px 0;font-size:.9rem;text-align:center}
+  footer a{color:rgba(255,255,255,.82)}
+  footer a:hover{color:#fff}
+
+  /* ---------- Mobile menu ---------- */
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:600px){
+    .menu-btn{display:flex}
+    .nav>.btn{display:none}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;box-shadow:0 14px 30px rgba(28,30,26,.12);z-index:70}
+    nav.links.open{display:flex}
+    nav.links a{width:100%;padding:13px 24px;font-size:1.02rem;opacity:1;border-bottom:1px solid var(--line)}
+    nav.links a:last-child{border-bottom:none}
+  }
+  @media(max-width:600px){
+    nav.links{display:none}
+    .page-head h1{font-size:2.05rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" style="text-decoration:none">
+      <div class="brand-wrap">
+        <div class="brand">The Moore&nbsp;<b>Beat</b></div>
+        <div class="brand-tag">What's happening in Moore County, NC</div>
+      </div>
+    </a>
+    <nav class="links" id="navMenu" onclick="if(event.target.tagName==='A'){this.classList.remove('open');document.querySelector('.menu-btn').classList.remove('open')}">
+      <a href="index.html#events">Events</a>
+      <a href="weekend.html">This Weekend</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="index.html#eat">Eat &amp; Drink</a>
+      <a href="happyhour.html" class="active">Happy Hours</a>
+      <a href="livemusic.html">Live Music</a>
+      <a href="index.html#businesses">Local Finds</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <a href="weekend.html" class="btn gold">This Weekend</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Find a Deal</div>
+    <h1>Happy Hours by Day</h1>
+    <p>Pick a day to see which Moore County spots have a special. We start the list on today.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="daybar" id="daybar"></div>
+    <h2 class="daytitle" id="dayTitle">—</h2>
+    <div id="dealsGrid"></div>
+    <div class="disclaimer">
+      Deals change — please confirm with the spot before you head out. Know a happy hour we're missing?
+      <a href="index.html#submit">Send it our way</a> and we'll add it.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
+    <p style="margin-top:8px"><a href="index.html">Home</a> · <a href="weekend.html">This Weekend</a> · <a href="livemusic.html">Live Music</a> · <a href="index.html#eat">Eat &amp; Drink</a></p>
+    <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
+  </div>
+</footer>
+
+<script src="events.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const ABBR = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const pd = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayIdx = today.getDay();
+
+  const ALL = (typeof SPECIALS!=="undefined"?SPECIALS:[])
+    .filter(s => !s.expires || pd(s.expires) >= today);
+
+  let selected = todayIdx;
+
+  // Order the day buttons starting with today
+  const order = [];
+  for(let i=0;i<7;i++) order.push((todayIdx+i)%7);
+
+  const daybar = document.getElementById("daybar");
+  daybar.innerHTML = order.map(idx=>{
+    const isToday = idx===todayIdx;
+    return `<button class="daybtn${idx===selected?' active':''}" data-idx="${idx}">
+      ${isToday?'<span class="td">Today</span>':''}${ABBR[idx]}</button>`;
+  }).join("");
+
+  function dealsForDay(idx){
+    const name = DAYS[idx];
+    return ALL.filter(s => (s.days||[]).includes(name) || (s.days||[]).includes("Daily"));
+  }
+
+  function render(){
+    document.querySelectorAll(".daybtn").forEach(b=>{
+      b.classList.toggle("active", Number(b.dataset.idx)===selected);
+    });
+    document.getElementById("dayTitle").textContent =
+      (selected===todayIdx ? "Today — " : "") + DAYS[selected];
+    const list = dealsForDay(selected);
+    const grid = document.getElementById("dealsGrid");
+    if(!list.length){
+      grid.innerHTML = `<p class="none">No deals listed for ${DAYS[selected]} yet — try another day, or check back as we add more.</p>`;
+      return;
+    }
+    grid.innerHTML = `<div class="grid">` + list.map(s=>`
+      <div class="card"><div class="topline"></div><div class="body">
+        <span class="tag">${(s.days||[]).join(" & ")}</span>
+        <h3>${s.business}</h3>
+        <div class="meta">${s.town}</div>
+        <p class="offer">${s.offer}</p>
+      </div></div>`).join("") + `</div>`;
+  }
+
+  daybar.addEventListener("click", e=>{
+    const b = e.target.closest(".daybtn");
+    if(!b) return;
+    selected = Number(b.dataset.idx);
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>

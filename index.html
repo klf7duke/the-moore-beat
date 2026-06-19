@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Moore Beat — Events, Eats & Happenings in Moore County, NC</title>
+<meta name="description" content="Your guide to events, restaurants, happy hours, and local life across Pinehurst, Southern Pines, Aberdeen & all of Moore County, NC." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1e1a;
+    --bg:#f7f5ef;            /* soft bone, a touch lighter for air */
+    --bg-alt:#f0ece2;
+    --card:#ffffff;
+    --muted:#787a6f;
+    --line:#e8e3d8;
+    --green:#2f5d4a;         /* deep pine — primary */
+    --green-d:#244739;
+    --green-soft:#eaf0eb;
+    --gold:#c9a24a;          /* brass gold — accent */
+    --gold-d:#b1872f;
+    --gold-ink:#8f6c1d;      /* readable gold for small text */
+    --gold-soft:#f5edd7;
+    --display:'Fraunces','Georgia','Times New Roman',serif;
+    --shadow:0 8px 24px rgba(28,30,26,.07);
+    --shadow-h:0 18px 40px rgba(28,30,26,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Header ---------- */
+  header{position:sticky;top:0;z-index:60;background:rgba(247,245,239,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1140px;margin:0 auto;gap:10px;flex-wrap:wrap}
+  .brand-wrap{display:flex;flex-direction:column;line-height:1}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.55rem;letter-spacing:-.3px;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .brand b{color:var(--gold-d);font-weight:600}
+  .brand-tag{font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  nav.links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--ink);font-weight:500;font-size:.92rem;opacity:.8}
+  nav.links a:hover{opacity:1;color:var(--green)}
+  .btn{background:var(--green);color:#fff;padding:11px 21px;border-radius:9px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.18s;display:inline-block;letter-spacing:.2px}
+  .btn:hover{background:var(--green-d);color:#fff}
+  .btn.gold{background:var(--gold);color:#241c06}
+  .btn.gold:hover{background:var(--gold-d);color:#241c06}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;color:var(--ink);padding:104px 0 168px;overflow:hidden;background:linear-gradient(180deg,#bfe2e9 0%,#d9ecdc 46%,#f6ead0 100%)}
+  .hero .scene{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:288px;z-index:1;pointer-events:none}
+  .hero .wrap{position:relative;z-index:2}
+  .hero h1{font-family:var(--display);font-size:3.4rem;line-height:1.04;letter-spacing:-1px;max-width:780px;font-weight:600;color:#1f4a3a}
+  .hero p{font-size:1.22rem;max-width:540px;margin-top:20px;color:#45564c}
+  .hero .cta{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap}
+  .kicker{display:inline-block;border:1px solid rgba(47,93,74,.26);padding:6px 15px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:2px;margin-bottom:24px;text-transform:uppercase;color:var(--green);background:rgba(255,255,255,.55)}
+  .hero .btn.ghost{background:rgba(255,255,255,.78);border:1px solid var(--line);color:var(--green)}
+  .hero .btn.ghost:hover{background:#fff}
+
+  .chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:36px}
+  .chip{font-size:.82rem;font-weight:600;padding:7px 15px;border-radius:999px;color:var(--green);cursor:pointer;background:rgba(255,255,255,.72);border:1px solid var(--line);transition:.15s}
+  .chip:hover{background:#fff}
+
+  /* ---------- Sections ---------- */
+  section{padding:84px 0}
+  .section-head{margin-bottom:40px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
+  .section-head h2{font-family:var(--display);font-size:2.3rem;letter-spacing:-.5px;font-weight:600;line-height:1.08}
+  .section-head p{color:var(--muted);margin-top:10px;max-width:620px}
+
+  /* ---------- Filters ---------- */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+  .filters select{padding:10px 15px;border-radius:9px;border:1px solid var(--line);background:#fff;font-size:.92rem;color:var(--ink);font-weight:500;cursor:pointer}
+  .filters select:focus{outline:none;border-color:var(--green)}
+
+  /* ---------- Cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-h)}
+  .card .topline{height:3px;width:100%}
+  .card .body{padding:24px;display:flex;flex-direction:column;flex-grow:1}
+  .tag{align-self:flex-start;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#fff;padding:4px 10px;border-radius:6px}
+  .card h3{font-size:1.2rem;margin:14px 0 3px;font-weight:600;letter-spacing:-.2px}
+  .meta{font-size:.87rem;color:var(--muted);font-weight:500}
+  .when{display:flex;align-items:center;gap:14px;margin-top:15px}
+  .datebox{background:var(--ink);color:#fff;border-radius:10px;text-align:center;padding:9px 0;width:56px;flex-shrink:0;line-height:1.05}
+  .datebox .d{font-family:var(--display);font-size:1.4rem;font-weight:600}
+  .datebox .m{font-size:.62rem;text-transform:uppercase;letter-spacing:1.2px;opacity:.78}
+  p.desc{margin-top:12px;color:#55574e;font-size:.94rem;flex-grow:1}
+  a.more{margin-top:16px;font-weight:600;font-size:.88rem;color:var(--green)}
+
+  .vibes{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}
+  .vibe{font-size:.72rem;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--green-soft);color:var(--green)}
+  .price{font-weight:700;color:var(--green);font-size:1rem;margin-left:auto}
+  .hh{margin-top:12px;font-size:.85rem;font-weight:500;color:#7a5e1c;background:var(--gold-soft);padding:9px 12px;border-radius:8px}
+  .row-top{display:flex;align-items:center;gap:8px}
+
+  /* ---------- Newsletter band ---------- */
+  .news{background:var(--ink);color:#fff;border-radius:18px;padding:54px 40px;text-align:center;position:relative;overflow:hidden}
+  .news:before{content:"";position:absolute;inset:0;background:radial-gradient(560px 280px at 85% 0%, rgba(201,162,74,.22), transparent 60%)}
+  .news>*{position:relative}
+  .news h2{font-family:var(--display);font-size:2rem;font-weight:600;color:#fff;letter-spacing:-.3px}
+  .news p{max-width:500px;margin:12px auto 0;color:rgba(255,255,255,.76)}
+  .news .form{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .news input{padding:13px 18px;border-radius:9px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:1rem;width:300px;max-width:80vw}
+  .news input::placeholder{color:rgba(255,255,255,.5)}
+  .news .btn{background:var(--gold);color:#241c06}
+  .news .btn:hover{background:var(--gold-d)}
+
+  /* ---------- Specials ---------- */
+  .special .offer{font-size:1.02rem;font-weight:500;margin:11px 0;color:var(--ink)}
+  .exp{font-size:.8rem;color:var(--muted);font-weight:500}
+
+  /* ---------- Ad slot ---------- */
+  .adslot{border:1px dashed #d0c7b3;border-radius:14px;background:#fbf8f0;text-align:center;padding:40px 22px;color:#8f8775;margin-top:16px}
+  .adslot strong{color:var(--green)}
+
+  /* ---------- Submit band ---------- */
+  .band{background:var(--green)}
+  .band .eyebrow{color:var(--gold)}
+  .band h2{color:#fff}
+  .band .section-head p{color:rgba(255,255,255,.82)}
+  .band .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px;margin-top:6px}
+  .band .grid3 h4{font-family:var(--display);font-weight:600;margin-bottom:8px;font-size:1.12rem;color:#fff}
+  .band .grid3 p{color:rgba(255,255,255,.8)}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:42px 0;font-size:.9rem;text-align:center}
+  footer a{color:rgba(255,255,255,.82)}
+  footer a:hover{color:#fff}
+  .empty{color:var(--muted);font-style:italic;padding:20px 0}
+
+  /* ---------- Mobile menu ---------- */
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:600px){
+    .menu-btn{display:flex}
+    .nav>.btn{display:none}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;box-shadow:0 14px 30px rgba(28,30,26,.12);z-index:70}
+    nav.links.open{display:flex}
+    nav.links a{width:100%;padding:13px 24px;font-size:1.02rem;opacity:1;border-bottom:1px solid var(--line)}
+    nav.links a:last-child{border-bottom:none}
+  }
+  @media(max-width:600px){
+    .hero{padding:72px 0 110px}
+    .hero h1{font-size:2.3rem}
+    .hero .scene{height:170px}
+    section{padding:60px 0}
+    nav.links{display:none}
+    .news{padding:36px 22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="nav">
+    <div class="brand-wrap">
+      <div class="brand">The Moore&nbsp;<b>Beat</b></div>
+      <div class="brand-tag">What's happening in Moore County, NC</div>
+    </div>
+    <nav class="links" id="navMenu" onclick="if(event.target.tagName==='A'){this.classList.remove('open');document.querySelector('.menu-btn').classList.remove('open')}">
+      <a href="#events">Events</a>
+      <a href="weekend.html">This Weekend</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="#eat">Eat &amp; Drink</a>
+      <a href="happyhour.html">Happy Hours</a>
+      <a href="livemusic.html">Live Music</a>
+      <a href="#businesses">Local Finds</a>
+      <a href="#submit">Submit</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <a href="weekend.html" class="btn gold">This Weekend</a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<div class="hero">
+  <!-- Sandhills horizon: drawn in code so it stays crisp at any size -->
+  <svg class="scene" viewBox="0 0 1440 288" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- bright sun with warm glow -->
+    <circle cx="1145" cy="84" r="122" fill="#f9d885" opacity="0.45"/>
+    <circle cx="1145" cy="84" r="82" fill="#f6c95f" opacity="0.6"/>
+    <circle cx="1145" cy="84" r="54" fill="#f4b73f"/>
+    <!-- soft clouds -->
+    <g fill="#ffffff" opacity="0.72">
+      <ellipse cx="318" cy="74" rx="72" ry="20"/>
+      <ellipse cx="382" cy="63" rx="46" ry="16"/>
+      <ellipse cx="836" cy="56" rx="60" ry="17"/>
+      <ellipse cx="886" cy="48" rx="36" ry="13"/>
+    </g>
+    <!-- back ridge (light sage) -->
+    <path d="M0,176 C 240,138 430,164 660,156 C 920,146 1150,174 1440,148 L1440,288 L0,288 Z" fill="#9ec392"/>
+    <g fill="#74a073" opacity="0.9">
+      <path d="M198,176 l13,30 l-26,0 z M198,160 l11,24 l-22,0 z"/>
+      <path d="M250,182 l12,28 l-24,0 z M250,167 l10,22 l-20,0 z"/>
+      <path d="M1015,176 l13,30 l-26,0 z M1015,160 l11,24 l-22,0 z"/>
+    </g>
+    <!-- mid ridge (medium green) -->
+    <path d="M0,212 C 300,182 540,204 800,196 C 1080,186 1280,212 1440,200 L1440,288 L0,288 Z" fill="#5d8a63"/>
+    <g fill="#356b4f">
+      <path d="M120,212 l16,36 l-32,0 z M120,192 l13,28 l-26,0 z"/>
+      <path d="M168,218 l14,32 l-28,0 z M168,200 l11,25 l-22,0 z"/>
+      <path d="M1320,212 l16,36 l-32,0 z M1320,192 l13,28 l-26,0 z"/>
+    </g>
+    <!-- front ridge (pine) -->
+    <path d="M0,246 C 320,226 640,242 940,236 C 1200,231 1320,244 1440,238 L1440,288 L0,288 Z" fill="#2f5d4a"/>
+  </svg>
+  <div class="wrap">
+    <span class="kicker">Moore County, NC</span>
+    <h1>Find your beat in Moore County.</h1>
+    <p>Tap into the best of Moore County — every week.</p>
+    <div class="cta">
+      <a href="#events" class="btn gold">What's On This Week</a>
+      <a href="calendar.html" class="btn ghost">Browse the Calendar</a>
+    </div>
+    <div class="chips" id="heroChips"></div>
+  </div>
+</div>
+
+<!-- ===================== EVENTS ===================== -->
+<section id="events">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Calendar</div>
+      <h2>What's On</h2>
+      <p>Festivals, live music, markets and weekends worth leaving the house for.</p>
+    </div>
+    <div class="filters">
+      <select id="townFilter"><option value="">All towns</option></select>
+      <select id="catFilter"><option value="">All categories</option></select>
+    </div>
+    <div class="grid" id="eventsGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== EAT & DRINK ===================== -->
+<section id="eat" style="background:var(--bg-alt)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Guide</div>
+      <h2>Eat &amp; Drink</h2>
+      <p>The Moore County restaurant &amp; bar guide — from date-night spots to taproom hangs.</p>
+    </div>
+    <div class="filters">
+      <select id="cuisineFilter"><option value="">All cuisines</option></select>
+      <select id="vibeFilter"><option value="">All vibes</option></select>
+      <select id="eatTownFilter"><option value="">All towns</option></select>
+    </div>
+    <div class="grid" id="eatGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== SPECIALS / HAPPY HOURS ===================== -->
+<section id="specials" style="background:var(--bg-alt)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">This Week</div>
+      <h2>Happy Hours &amp; Deals</h2>
+      <p>The week's recurring specials. <a href="happyhour.html" style="font-weight:600">See what's on by day →</a></p>
+    </div>
+    <div class="grid" id="specialsGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== LOCAL FINDS ===================== -->
+<section id="businesses">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Local Finds</div>
+      <h2>Shops &amp; Services</h2>
+      <p>Shops, makers, and services worth knowing across the county.</p>
+    </div>
+    <div class="grid" id="bizGrid"></div>
+    <div class="adslot">
+      <strong>Your spot could be featured right here.</strong><br>
+      Sponsored listings &amp; banner ads will live in places like this as we grow.
+      For now it's free — <a href="#submit">get listed</a>.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SUBMIT ===================== -->
+<section id="submit" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Get Involved</div>
+      <h2>Get on the map</h2>
+      <p>Have an event, a special, or a spot we should feature? Send it our way.</p>
+    </div>
+    <div class="grid3">
+      <div><h4>Post an event</h4><p>Date, time, place, and a sentence about it — we'll add it to the calendar.</p></div>
+      <div><h4>Promote a deal</h4><p>Running a happy hour or sale? We'll put it in front of the community.</p></div>
+      <div><h4>Advertise (soon)</h4><p>As we grow, featured listings &amp; ads will be available to local businesses.</p></div>
+    </div>
+    <div class="cta" style="margin-top:30px">
+      <a href="mailto:klf7duke@gmail.com?subject=The%20Moore%20Beat%20Submission" class="btn gold">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
+    <p style="margin-top:8px">Your weekly beat on Moore County, NC · <a href="weekend.html">This Weekend</a> · <a href="calendar.html">Calendar</a> · <a href="#eat">Eat &amp; Drink</a> · <a href="#submit">Submit</a></p>
+    <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
+  </div>
+</footer>
+
+<script src="events.js"></script>
+<script>
+  const CAT_COLORS = {
+    "Festival":"#7a5c74","Music":"#2f5d4a","Market":"#6f8f5e","Food & Drink":"#b08a3c",
+    "Family":"#4a6b6f","Arts":"#50685a","Sports":"#355e6b","Community":"#8a7d3e","Sale":"#2f5d4a"
+  };
+  const PALETTE = ["#2f5d4a","#b08a3c","#4a6b6f","#6f8f5e","#7a5c74","#355e6b"];
+  const catColor = c => CAT_COLORS[c] || "#2f5d4a";
+  const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const pd = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+  const fmtDate = s => pd(s).toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"});
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  /* ----- EVENTS ----- */
+  // For a recurring event, return a copy dated to its next upcoming occurrence; else the event if still upcoming.
+  function nextOccurrence(e){
+    if(e.repeat==="weekly"){
+      const until = e.repeatUntil || e.date, except = e.except || [];
+      let cand = new Date(Math.max(pd(e.date).getTime(), today.getTime())); cand.setHours(0,0,0,0);
+      const wd = pd(e.date).getDay();
+      cand.setDate(cand.getDate() + ((wd - cand.getDay() + 7) % 7));
+      const untilDt = pd(until);
+      while(cand <= untilDt){
+        const ds = `${cand.getFullYear()}-${String(cand.getMonth()+1).padStart(2,"0")}-${String(cand.getDate()).padStart(2,"0")}`;
+        if(!except.includes(ds)) return Object.assign({}, e, {date: ds});
+        cand.setDate(cand.getDate()+7);
+      }
+      return null;
+    }
+    return pd(e.date) >= today ? e : null;
+  }
+  const upcoming = (typeof EVENTS!=="undefined"?EVENTS:[])
+    .map(nextOccurrence).filter(Boolean)
+    .sort((a,b)=>pd(a.date)-pd(b.date));
+  const townSel=document.getElementById("townFilter"), catSel=document.getElementById("catFilter");
+  [...new Set(upcoming.map(e=>e.town))].sort().forEach(t=>townSel.add(new Option(t,t)));
+  [...new Set(upcoming.map(e=>e.category))].sort().forEach(c=>catSel.add(new Option(c,c)));
+
+  const heroChips=document.getElementById("heroChips");
+  [...new Set(upcoming.map(e=>e.category))].forEach(c=>{
+    const b=document.createElement("button");b.className="chip";b.textContent=c;
+    b.onclick=()=>{catSel.value=c;renderEvents();document.getElementById("events").scrollIntoView();};
+    heroChips.appendChild(b);
+  });
+
+  function renderEvents(){
+    const town=townSel.value, cat=catSel.value;
+    const full=upcoming.filter(e=>(!town||e.town===town)&&(!cat||e.category===cat));
+    const CAP=12;
+    const list=full.slice(0,CAP);
+    const grid=document.getElementById("eventsGrid");
+    if(!full.length){grid.innerHTML='<p class="empty">No events match — try clearing the filters.</p>';return;}
+    grid.innerHTML=list.map(e=>{
+      const dt=pd(e.date), col=catColor(e.category);
+      const link=e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+      return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+        <span class="tag" style="background:${col}">${e.category}</span>
+        <div class="when">
+          <div class="datebox"><div class="d">${dt.getDate()}</div><div class="m">${months[dt.getMonth()]}</div></div>
+          <div><h3 style="margin:0">${e.title}</h3><div class="meta">${fmtDate(e.date)} · ${e.time}</div></div>
+        </div>
+        <div class="meta" style="margin-top:9px">${e.town}</div>
+        <p class="desc">${e.description}</p>${link}</div></div>`;
+    }).join("")
+    + (full.length>CAP ? `<div class="card" style="align-items:center;justify-content:center;text-align:center"><div class="body" style="justify-content:center;align-items:center">
+        <p class="desc" style="flex-grow:0;margin:0 0 12px"><strong>+${full.length-CAP} more</strong> coming up${(!town&&!cat)?" — including this weekend's live music":""}.</p>
+        <a class="more" href="weekend.html" style="margin:2px 0">See this weekend →</a>
+        <a class="more" href="calendar.html" style="margin:2px 0">Browse the full calendar →</a>
+      </div></div>` : "");
+  }
+  townSel.onchange=renderEvents; catSel.onchange=renderEvents; renderEvents();
+
+  /* ----- RESTAURANTS ----- */
+  const rests=(typeof RESTAURANTS!=="undefined"?RESTAURANTS:[]);
+  const cuisineSel=document.getElementById("cuisineFilter"), vibeSel=document.getElementById("vibeFilter"), eatTownSel=document.getElementById("eatTownFilter");
+  [...new Set(rests.map(r=>r.cuisine))].sort().forEach(c=>cuisineSel.add(new Option(c,c)));
+  [...new Set(rests.flatMap(r=>r.vibe))].sort().forEach(v=>vibeSel.add(new Option(v,v)));
+  [...new Set(rests.map(r=>r.town))].sort().forEach(t=>eatTownSel.add(new Option(t,t)));
+  const cuisineList=[...new Set(rests.map(r=>r.cuisine))];
+  const cuisineColor=c=>PALETTE[cuisineList.indexOf(c)%PALETTE.length];
+
+  function renderEats(){
+    const cu=cuisineSel.value, vi=vibeSel.value, tw=eatTownSel.value;
+    const list=rests.filter(r=>(!cu||r.cuisine===cu)&&(!vi||r.vibe.includes(vi))&&(!tw||r.town===tw));
+    const grid=document.getElementById("eatGrid");
+    if(!list.length){grid.innerHTML='<p class="empty">No spots match — try clearing the filters.</p>';return;}
+    grid.innerHTML=list.map(r=>{
+      const col=cuisineColor(r.cuisine);
+      const vibes=r.vibe.map(v=>`<span class="vibe">${v}</span>`).join("");
+      const hh=r.happyhour?`<div class="hh">${r.happyhour}</div>`:"";
+      const link=r.link?`<a class="more" href="${r.link}" target="_blank" rel="noopener">Visit →</a>`:"";
+      return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+        <div class="row-top"><span class="tag" style="background:${col}">${r.cuisine}</span><span class="price">${r.price}</span></div>
+        <h3>${r.name}</h3>
+        <div class="meta">${r.town}</div>
+        <p class="desc">${r.description}</p>
+        <div class="vibes">${vibes}</div>${hh}${link}</div></div>`;
+    }).join("");
+  }
+  cuisineSel.onchange=renderEats; vibeSel.onchange=renderEats; eatTownSel.onchange=renderEats; renderEats();
+
+  /* ----- SPECIALS ----- */
+  const specials=(typeof SPECIALS!=="undefined"?SPECIALS:[]).filter(s=>!s.expires||pd(s.expires)>=today);
+  document.getElementById("specialsGrid").innerHTML = specials.length?specials.map(s=>`
+    <div class="card special"><div class="topline" style="background:var(--gold)"></div><div class="body">
+      <span class="tag" style="background:var(--gold);color:#241c06">${(s.days&&s.days.length)?s.days.join(" & "):"Deal"}</span>
+      <h3>${s.business}</h3><div class="meta">${s.town}</div>
+      <p class="offer">${s.offer}</p>${s.expires?`<p class="exp">Ends ${fmtDate(s.expires)}</p>`:""}
+    </div></div>`).join("") : '<p class="empty">No current deals — check back soon.</p>';
+
+  /* ----- BUSINESSES ----- */
+  const biz=(typeof BUSINESSES!=="undefined"?BUSINESSES:[]);
+  document.getElementById("bizGrid").innerHTML = biz.map((b,i)=>{
+    const col=PALETTE[i%PALETTE.length];
+    const link=b.link?`<a class="more" href="${b.link}" target="_blank" rel="noopener">Visit →</a>`:"";
+    return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+      <span class="tag" style="background:${col}">${b.category}</span>
+      <h3>${b.name}</h3><div class="meta">${b.town}</div>
+      <p class="desc">${b.description}</p>${link}</div></div>`;
+  }).join("");
+
+  /* ----- Newsletter (demo) ----- */
+  function signup(){
+    const v=document.getElementById("emailIn").value.trim();
+    const msg=document.getElementById("signupMsg");
+    if(v && v.includes("@")){ msg.textContent="You're on the list! (Connect a real email tool to start collecting these.)"; document.getElementById("emailIn").value=""; }
+    else { msg.textContent="Please enter a valid email."; }
+  }
+</script>
+</body>
+</html>

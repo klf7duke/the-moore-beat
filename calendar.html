@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Events Calendar — The Moore Beat | Moore County, NC</title>
+<meta name="description" content="Browse the Moore County events calendar by day — festivals, music, markets, and more across Pinehurst, Southern Pines, Aberdeen and beyond." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1e1a;--bg:#f7f5ef;--bg-alt:#f0ece2;--card:#ffffff;--muted:#787a6f;--line:#e8e3d8;
+    --green:#2f5d4a;--green-d:#244739;--green-soft:#eaf0eb;
+    --gold:#c9a24a;--gold-d:#b1872f;--gold-ink:#8f6c1d;--gold-soft:#f5edd7;
+    --display:'Fraunces','Georgia','Times New Roman',serif;
+    --shadow:0 8px 24px rgba(28,30,26,.07);--shadow-h:0 18px 40px rgba(28,30,26,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(247,245,239,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1140px;margin:0 auto;gap:10px;flex-wrap:wrap}
+  .brand-wrap{display:flex;flex-direction:column;line-height:1}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.55rem;letter-spacing:-.3px;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .brand b{color:var(--gold-d)}
+  .brand-tag{font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  nav.links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--ink);font-weight:500;font-size:.92rem;opacity:.8}
+  nav.links a:hover,nav.links a.active{opacity:1;color:var(--green)}
+  nav.links a.active{font-weight:700}
+  .btn{background:var(--green);color:#fff;padding:11px 21px;border-radius:9px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.18s;display:inline-block}
+  .btn:hover{background:var(--green-d);color:#fff}
+  .btn.gold{background:var(--gold);color:#241c06}
+  .btn.gold:hover{background:var(--gold-d)}
+
+  .page-head{padding:54px 0 10px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
+  .page-head h1{font-family:var(--display);font-size:2.6rem;letter-spacing:-.6px;font-weight:600;line-height:1.06}
+  .page-head p{color:var(--muted);margin-top:10px;max-width:620px}
+
+  section{padding:30px 0 80px}
+  .cal-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+  .cal-bar h2{font-family:var(--display);font-size:1.7rem;font-weight:600;letter-spacing:-.3px;min-width:230px}
+  .cal-nav{display:flex;gap:8px;align-items:center}
+  .cal-nav button{width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:1.1rem;color:var(--green);font-weight:700;transition:.15s}
+  .cal-nav button:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  .cal-nav .today-btn{width:auto;padding:0 16px;font-size:.85rem;font-weight:700}
+
+  .weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
+  .weekdays div{text-align:center;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:4px 0}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+  .day{min-height:84px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px 10px;display:flex;flex-direction:column;gap:5px;position:relative;transition:.12s}
+  .day.empty{background:transparent;border:none}
+  .day .num{font-size:.92rem;font-weight:600;color:var(--ink)}
+  .day.has{cursor:pointer}
+  .day.has:hover{border-color:var(--green);box-shadow:var(--shadow)}
+  .day.today{box-shadow:inset 0 0 0 2px var(--gold)}
+  .day.today .num{color:var(--gold-ink);font-weight:800}
+  .day.selected{background:var(--green);border-color:var(--green)}
+  .day.selected .num,.day.selected .count{color:#fff}
+  .dots{display:flex;gap:4px;flex-wrap:wrap;margin-top:auto}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .count{font-size:.66rem;color:var(--muted);font-weight:700;margin-top:auto}
+
+  /* selected-day event list */
+  #dayPanel{margin-top:38px}
+  #dayPanel .eyebrow{margin-bottom:6px}
+  #dayPanel h3{font-family:var(--display);font-size:1.5rem;font-weight:600;margin-bottom:18px;letter-spacing:-.3px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+  .card .topline{height:3px;width:100%}
+  .card .body{padding:22px;display:flex;flex-direction:column;flex-grow:1}
+  .tag{align-self:flex-start;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#fff;padding:4px 10px;border-radius:6px}
+  .card h4{font-size:1.16rem;margin:13px 0 3px;font-weight:600;letter-spacing:-.2px}
+  .meta{font-size:.87rem;color:var(--muted);font-weight:500}
+  p.desc{margin-top:11px;color:#55574e;font-size:.94rem;flex-grow:1}
+  a.more{margin-top:15px;font-weight:600;font-size:.88rem;color:var(--green)}
+  .none{color:var(--muted);font-style:italic;padding:6px 0 0}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:42px 0;font-size:.9rem;text-align:center;margin-top:20px}
+  footer a{color:rgba(255,255,255,.82)}
+  footer a:hover{color:#fff}
+
+  /* ---------- Mobile menu ---------- */
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:600px){
+    .menu-btn{display:flex}
+    .nav>.btn{display:none}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;box-shadow:0 14px 30px rgba(28,30,26,.12);z-index:70}
+    nav.links.open{display:flex}
+    nav.links a{width:100%;padding:13px 24px;font-size:1.02rem;opacity:1;border-bottom:1px solid var(--line)}
+    nav.links a:last-child{border-bottom:none}
+  }
+  @media(max-width:600px){
+    nav.links{display:none}
+    .page-head h1{font-size:2rem}
+    .day{min-height:58px;padding:6px;border-radius:9px}
+    .day .num{font-size:.8rem}
+    .dot{width:6px;height:6px}
+    .days,.weekdays{gap:5px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" style="text-decoration:none">
+      <div class="brand-wrap">
+        <div class="brand">The Moore&nbsp;<b>Beat</b></div>
+        <div class="brand-tag">What's happening in Moore County, NC</div>
+      </div>
+    </a>
+    <nav class="links" id="navMenu" onclick="if(event.target.tagName==='A'){this.classList.remove('open');document.querySelector('.menu-btn').classList.remove('open')}">
+      <a href="index.html#events">Events</a>
+      <a href="weekend.html">This Weekend</a>
+      <a href="calendar.html" class="active">Calendar</a>
+      <a href="index.html#eat">Eat &amp; Drink</a>
+      <a href="happyhour.html">Happy Hours</a>
+      <a href="livemusic.html">Live Music</a>
+      <a href="index.html#businesses">Local Finds</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <a href="weekend.html" class="btn gold">Full Events List</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Plan Your Week</div>
+    <h1>Events Calendar</h1>
+    <p>Pick a day to see everything happening across Moore County. Days with a colored dot have events — tap one to see the details.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="cal-bar">
+      <h2 id="monthLabel">—</h2>
+      <div class="cal-nav">
+        <button class="today-btn" id="todayBtn" title="Jump to today">Today</button>
+        <button id="prevBtn" aria-label="Previous month">‹</button>
+        <button id="nextBtn" aria-label="Next month">›</button>
+      </div>
+    </div>
+    <div class="weekdays">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    <div class="days" id="daysGrid"></div>
+
+    <div id="dayPanel"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
+    <p style="margin-top:8px"><a href="index.html">Home</a> · <a href="index.html#events">Events</a> · <a href="index.html#eat">Eat &amp; Drink</a> · <a href="index.html#submit">Submit</a></p>
+    <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
+  </div>
+</footer>
+
+<script src="events.js"></script>
+<script>
+  const CAT_COLORS = {
+    "Festival":"#7a5c74","Music":"#2f5d4a","Market":"#6f8f5e","Food & Drink":"#b08a3c",
+    "Family":"#4a6b6f","Arts":"#50685a","Sports":"#355e6b","Community":"#8a7d3e","Sale":"#2f5d4a"
+  };
+  const catColor = c => CAT_COLORS[c] || "#2f5d4a";
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const pad = n => String(n).padStart(2,"0");
+  const key = (y,m,d) => `${y}-${pad(m+1)}-${pad(d)}`;
+  const fmtLong = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}); };
+
+  const ALL = (typeof EVENTS!=="undefined"?EVENTS:[]);
+  const weekdayOf = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d).getDay(); };
+  // Which events fall on a given YYYY-MM-DD? Handles weekly recurring events.
+  function eventsOnDay(ds){
+    return ALL.filter(e=>{
+      if(e.repeat==="weekly"){
+        if(ds < e.date) return false;                       // before it starts
+        if(ds > (e.repeatUntil || e.date)) return false;    // after it ends
+        if((e.except || []).includes(ds)) return false;     // skipped date
+        return weekdayOf(ds) === weekdayOf(e.date);         // same weekday
+      }
+      return e.date === ds;
+    });
+  }
+
+  const now = new Date();
+  let viewY = now.getFullYear();
+  let viewM = now.getMonth();           // 0-based
+  let selected = key(now.getFullYear(), now.getMonth(), now.getDate());
+
+  function renderMonth(){
+    document.getElementById("monthLabel").textContent = `${MONTHS[viewM]} ${viewY}`;
+    const grid = document.getElementById("daysGrid");
+    grid.innerHTML = "";
+    const firstDay = new Date(viewY, viewM, 1).getDay();   // 0=Sun
+    const daysInMonth = new Date(viewY, viewM+1, 0).getDate();
+    const todayStr = key(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // leading blanks
+    for(let i=0;i<firstDay;i++){
+      const c=document.createElement("div"); c.className="day empty"; grid.appendChild(c);
+    }
+    for(let d=1; d<=daysInMonth; d++){
+      const ds = key(viewY, viewM, d);
+      const evs = eventsOnDay(ds);
+      const cell = document.createElement("div");
+      cell.className = "day" + (evs.length?" has":"") + (ds===todayStr?" today":"") + (ds===selected?" selected":"");
+      let html = `<div class="num">${d}</div>`;
+      if(evs.length){
+        const dots = [...new Set(evs.map(e=>e.category))].slice(0,4)
+          .map(cat=>`<span class="dot" style="background:${catColor(cat)}"></span>`).join("");
+        html += `<div class="dots">${dots}</div><div class="count">${evs.length} event${evs.length>1?"s":""}</div>`;
+      }
+      cell.innerHTML = html;
+      if(evs.length){ cell.onclick = ()=>{ selected = ds; renderMonth(); renderPanel(); }; }
+      grid.appendChild(cell);
+    }
+  }
+
+  function renderPanel(){
+    const panel = document.getElementById("dayPanel");
+    const evs = eventsOnDay(selected);
+    let html = `<div class="eyebrow">Selected Day</div><h3>${fmtLong(selected)}</h3>`;
+    if(!evs.length){
+      html += `<p class="none">No events listed for this day. Pick a day with a colored dot, or check back as new events are added.</p>`;
+    } else {
+      html += `<div class="grid">` + evs.map(e=>{
+        const col = catColor(e.category);
+        const link = e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+        return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+          <span class="tag" style="background:${col}">${e.category}</span>
+          <h4>${e.title}</h4>
+          <div class="meta">${e.time} · ${e.town}</div>
+          <p class="desc">${e.description}</p>${link}
+        </div></div>`;
+      }).join("") + `</div>`;
+    }
+    panel.innerHTML = html;
+  }
+
+  document.getElementById("prevBtn").onclick = ()=>{ viewM--; if(viewM<0){viewM=11;viewY--;} renderMonth(); };
+  document.getElementById("nextBtn").onclick = ()=>{ viewM++; if(viewM>11){viewM=0;viewY++;} renderMonth(); };
+  document.getElementById("todayBtn").onclick = ()=>{
+    viewY=now.getFullYear(); viewM=now.getMonth();
+    selected=key(now.getFullYear(),now.getMonth(),now.getDate());
+    renderMonth(); renderPanel();
+  };
+
+  renderMonth();
+  renderPanel();
+</script>
+</body>
+</html>
