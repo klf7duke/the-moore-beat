@@ -88,12 +88,23 @@
     .page-head h1{font-size:2.05rem}
   }
 </style>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2f5d4a" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Moore Beat" />
+  <script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
 </head>
 <body>
 
 <header>
   <div class="nav">
-    <a href="index.html" style="text-decoration:none">
+    <a href="index.html" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+      <img src="logo.png" alt="The Moore Beat" style="width:50px;height:50px;border-radius:50%;flex-shrink:0;box-shadow:0 1px 5px rgba(0,0,0,.18)" />
       <div class="brand-wrap">
         <div class="brand">The Moore&nbsp;<b>Beat</b></div>
         <div class="brand-tag">What's happening in Moore County, NC</div>
