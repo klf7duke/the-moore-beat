@@ -1,9 +1,9 @@
 /* The Moore Beat — service worker (network-first, offline fallback) */
-const CACHE = 'moore-beat-v1';
+const CACHE = 'moore-beat-v2';
 const CORE = [
   './', './index.html', './calendar.html', './weekend.html',
-  './happyhour.html', './livemusic.html', './events.js',
-  './manifest.json', './icon-192.png', './icon-512.png'
+  './happyhour.html', './livemusic.html', './event.html', './events.js',
+  './manifest.json', './logo.png', './icon-192.png', './icon-512.png'
 ];
 
 self.addEventListener('install', function (e) {

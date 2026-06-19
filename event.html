@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Event — The Moore Beat | Moore County, NC</title>
+<meta name="description" content="Event details on The Moore Beat — your guide to events, eats, and live music in Moore County, NC." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#2f5d4a" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+<style>
+  :root{
+    --ink:#1c1e1a;--bg:#f7f5ef;--bg-alt:#f0ece2;--card:#ffffff;--muted:#787a6f;--line:#e8e3d8;
+    --green:#2f5d4a;--green-d:#244739;--green-soft:#eaf0eb;
+    --gold:#c9a24a;--gold-d:#b1872f;--gold-ink:#8f6c1d;--gold-soft:#f5edd7;
+    --display:'Fraunces','Georgia','Times New Roman',serif;
+    --shadow:0 8px 24px rgba(28,30,26,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(247,245,239,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1140px;margin:0 auto;gap:10px;flex-wrap:wrap;position:relative}
+  .brand-wrap{display:flex;flex-direction:column;line-height:1}
+  .brand{font-family:var(--display);font-weight:600;font-size:1.55rem;letter-spacing:-.3px;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+  .brand b{color:var(--gold-d)}
+  .brand-tag{font-size:.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  nav.links{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--ink);font-weight:500;font-size:.9rem;opacity:.8}
+  nav.links a:hover{opacity:1;color:var(--green)}
+  .btn{background:var(--green);color:#fff;padding:11px 21px;border-radius:9px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:.18s;display:inline-block}
+  .btn:hover{background:var(--green-d);color:#fff}
+  .btn.gold{background:var(--gold);color:#241c06}
+  .btn.gold:hover{background:var(--gold-d)}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--green)}
+  .btn.ghost:hover{background:var(--bg-alt)}
+
+  .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  .menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-btn.open span:nth-child(2){opacity:0}
+  .menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  .crumb{padding:30px 0 0}
+  .crumb a{font-weight:600;font-size:.9rem}
+  article{padding:18px 0 80px}
+  .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:18px 0 10px}
+  h1{font-family:var(--display);font-size:2.4rem;line-height:1.08;letter-spacing:-.6px;font-weight:600}
+  .meta{color:var(--muted);font-weight:600;margin-top:12px;font-size:1rem}
+  .rule{height:3px;width:64px;border-radius:3px;margin:24px 0}
+  .desc{font-size:1.12rem;color:#3c3e37;white-space:pre-line}
+  .source{margin-top:22px;font-size:.9rem;color:var(--muted);font-style:italic}
+  .actions{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+  .notfound{padding:60px 0;text-align:center;color:var(--muted)}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:42px 0;font-size:.9rem;text-align:center;margin-top:20px}
+  footer a{color:rgba(255,255,255,.82)}
+  footer a:hover{color:#fff}
+
+  @media(max-width:600px){
+    .menu-btn{display:flex}
+    .nav>.btn{display:none}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;box-shadow:0 14px 30px rgba(28,30,26,.12);z-index:70}
+    nav.links.open{display:flex}
+    nav.links a{width:100%;padding:13px 24px;font-size:1.02rem;opacity:1;border-bottom:1px solid var(--line)}
+    nav.links a:last-child{border-bottom:none}
+    h1{font-size:1.85rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+      <img src="logo.png" alt="The Moore Beat" style="width:50px;height:50px;border-radius:50%;flex-shrink:0;box-shadow:0 1px 5px rgba(0,0,0,.18)" />
+      <div class="brand-wrap">
+        <div class="brand">The Moore&nbsp;<b>Beat</b></div>
+        <div class="brand-tag">What's happening in Moore County, NC</div>
+      </div>
+    </a>
+    <nav class="links" id="navMenu" onclick="if(event.target.tagName==='A'){this.classList.remove('open');document.querySelector('.menu-btn').classList.remove('open')}">
+      <a href="index.html#events">Events</a>
+      <a href="weekend.html">This Weekend</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="index.html#eat">Eat &amp; Drink</a>
+      <a href="happyhour.html">Happy Hours</a>
+      <a href="livemusic.html">Live Music</a>
+      <a href="index.html#businesses">Local Finds</a>
+    </nav>
+    <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    <a href="weekend.html" class="btn gold">This Weekend</a>
+  </div>
+</header>
+
+<div class="crumb">
+  <div class="wrap"><a href="javascript:history.length>1?history.back():location.href='index.html#events'">← Back</a></div>
+</div>
+
+<article>
+  <div class="wrap" id="content">
+    <div class="notfound">Loading…</div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
+    <p style="margin-top:8px"><a href="index.html">Home</a> · <a href="weekend.html">This Weekend</a> · <a href="calendar.html">Calendar</a> · <a href="livemusic.html">Live Music</a></p>
+    <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
+  </div>
+</footer>
+
+<script src="events.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const CAT_COLORS = {
+    "Festival":"#7a5c74","Music":"#2f5d4a","Market":"#6f8f5e","Food & Drink":"#b08a3c",
+    "Family":"#4a6b6f","Arts":"#50685a","Sports":"#355e6b","Community":"#8a7d3e","Sale":"#2f5d4a"
+  };
+  const catColor = c => CAT_COLORS[c] || "#2f5d4a";
+  const fmtDate = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"}); };
+
+  const params = new URLSearchParams(location.search);
+  const t = params.get("t"), d = params.get("d");
+  const ALL = (typeof EVENTS!=="undefined"?EVENTS:[]);
+
+  // Find by title; if several share a title, disambiguate by date.
+  let ev = null;
+  if (t) {
+    const matches = ALL.filter(e => e.title === t);
+    ev = matches.length === 1 ? matches[0] : (matches.find(e => e.date === d) || matches[0] || null);
+  }
+
+  const el = document.getElementById("content");
+
+  function provenance(link){
+    if(!link) return {note:"", out:""};
+    const ig = link.match(/instagram\.com\/([^\/?#]+)/i);
+    if(ig) return {note:`Spotted on @${ig[1]} on Instagram — shared here so you can keep browsing.`, out:""};
+    if(/facebook\.com/i.test(link)) return {note:"Spotted on Facebook — shared here so you can keep browsing.", out:""};
+    // non-social official source: offer an outbound (tickets / official site)
+    return {note:"", out:link};
+  }
+
+  if(!ev){
+    el.innerHTML = `<div class="notfound"><h1 style="font-size:1.6rem">Event not found</h1>
+      <p style="margin-top:10px">It may have already passed. Browse what's coming up instead.</p>
+      <div class="actions" style="justify-content:center"><a class="btn gold" href="weekend.html">This Weekend</a> <a class="btn ghost" href="calendar.html">Full Calendar</a></div></div>`;
+  } else {
+    document.title = ev.title + " — The Moore Beat";
+    const col = catColor(ev.category);
+    const p = provenance(ev.link);
+    const outBtn = p.out ? `<a class="btn ghost" href="${p.out}" target="_blank" rel="noopener">Official site &amp; tickets →</a>` : "";
+    el.innerHTML = `
+      <div class="eyebrow" style="color:${col}">${ev.category}</div>
+      <h1>${ev.title}</h1>
+      <div class="meta">${fmtDate(ev.date)} · ${ev.time} · ${ev.town}</div>
+      <div class="rule" style="background:${col}"></div>
+      <div class="desc">${ev.description || "Details coming soon."}</div>
+      ${p.note ? `<div class="source">${p.note}</div>` : ""}
+      <div class="actions">
+        <a class="btn gold" href="weekend.html">See This Weekend</a>
+        <a class="btn ghost" href="calendar.html">Full Calendar</a>
+        ${outBtn}
+      </div>`;
+  }
+</script>
+</body>
+</html>

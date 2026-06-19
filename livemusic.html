@@ -196,7 +196,7 @@
   const showsGrid = document.getElementById("showsGrid");
   showsGrid.innerHTML = shows.length ? `<div class="grid">` + shows.map(e=>{
     const dt = pd(e.date);
-    const link = e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+    const link = e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
     return `<div class="card"><div class="topline"></div><div class="body">
       <div class="when">
         <div class="datebox"><div class="d">${dt.getDate()}</div><div class="m">${months[dt.getMonth()]}</div></div>

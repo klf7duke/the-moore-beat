@@ -251,7 +251,7 @@
     } else {
       html += `<div class="grid">` + evs.map(e=>{
         const col = catColor(e.category);
-        const link = e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+        const link = e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
         return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
           <span class="tag" style="background:${col}">${e.category}</span>
           <h4>${e.title}</h4>

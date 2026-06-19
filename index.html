@@ -223,6 +223,13 @@
     </g>
     <!-- front ridge (pine) -->
     <path d="M0,246 C 320,226 640,242 940,236 C 1200,231 1320,244 1440,238 L1440,288 L0,288 Z" fill="#2f5d4a"/>
+    <!-- golf flag on the green: a nod to the Home of American Golf -->
+    <g>
+      <ellipse cx="1058" cy="252" rx="46" ry="10" fill="#3a6a53"/>
+      <circle cx="1030" cy="250" r="5" fill="#f4f1e9"/>
+      <line x1="1062" y1="251" x2="1062" y2="184" stroke="#f4f1e9" stroke-width="4"/>
+      <path d="M1062,184 L1110,195 L1062,206 Z" fill="#c9a24a"/>
+    </g>
   </svg>
   <div class="wrap">
     <span class="kicker">Moore County, NC</span>
@@ -381,7 +388,7 @@
     if(!full.length){grid.innerHTML='<p class="empty">No events match — try clearing the filters.</p>';return;}
     grid.innerHTML=list.map(e=>{
       const dt=pd(e.date), col=catColor(e.category);
-      const link=e.link?`<a class="more" href="${e.link}" target="_blank" rel="noopener">More info →</a>`:"";
+      const link=e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
       return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
         <span class="tag" style="background:${col}">${e.category}</span>
         <div class="when">
