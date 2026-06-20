@@ -93,6 +93,15 @@ const EVENTS = [
   { title: "Tim Wilson at BHAWK Distillery", date: "2026-06-21", time: "5–8 PM", town: "Southern Pines", category: "Music", description: "Sunday live music at BHAWK Distillery.", link: "https://www.instagram.com/sopinesscene/", livemusic: true },
   { title: "DJ Brandon Cox & DJ Van Horton at 1901 Lounge", date: "2026-06-21", time: "1–7 PM", town: "Southern Pines", category: "Music", description: "Sunday DJ sets at 1901 Lounge.", link: "https://www.instagram.com/sopinesscene/" },
   {
+    title: "Father's Day @ The Workshop",
+    date: "2026-06-21",
+    time: "10:30 AM – 2:30 PM",
+    town: "Aberdeen",
+    category: "Food & Drink",
+    description: "Father's Day brunch at The Workshop Tavern, served 10:30–2:30 — featuring Adam's famous Biscuits & Gravy, $9 Buffalo Trace single pours, and $16 Buffalo Trace Old Fashioneds.",
+    link: "https://www.instagram.com/theworkshoptavern/"
+  },
+  {
     title: "Sandhills Bogeys vs. Cape Fear Ghost Crabs",
     date: "2026-06-19",
     time: "7:00 PM",
@@ -181,6 +190,15 @@ const EVENTS = [
     featured: true
   },
   {
+    title: "Fun Family 4th of July",
+    date: "2026-07-04",
+    time: "5:00 PM – 9:15 PM",
+    town: "Aberdeen",
+    category: "Festival",
+    description: "Aberdeen Parks & Recreation's family Independence Day celebration at Aberdeen Lake Park, part of the USA 250 semiquincentennial. Free Kid Zone 5–8 PM (brought to you by Fidelity Bank), live music from the Sand Band 6–9 PM, and fireworks at 9:15 PM.",
+    link: "https://www.townofaberdeen.net/pview.aspx?id=2090"
+  },
+  {
     title: "Peach Week",
     date: "2026-07-18",
     time: "July 18 – 26",
@@ -209,6 +227,15 @@ const EVENTS = [
     link: "https://www.thepilot.com/"
   },
   {
+    title: "Donuts with Paw Patrol",
+    date: "2026-07-25",
+    time: "Sessions at 10 AM–12 PM & 12–2 PM",
+    town: "Aberdeen",
+    category: "Family",
+    description: "A paw-some day at Blue Bird Play Cafe — meet Marshall & Chase, enjoy donuts and juice, and make your own Paw Patrol-inspired slime at the Slime Station to take home, plus photo ops with your favorite pups. Play session included. Two sessions: 10 AM–12 PM and 12–2 PM. $30/child, $15 each additional child; reservations required.",
+    link: "https://www.instagram.com/bluebirdplaycafe/"
+  },
+  {
     title: "Peach Week Restaurant Competition",
     date: "2026-07-22",
     time: "July 22 – 26",
@@ -225,6 +252,15 @@ const EVENTS = [
     category: "Food & Drink",
     description: "Poplar Place's first Cocktail Making Class — learn the history and art of crafting two classics, the Mary Pickford and the Last Word. Includes a welcome glass of champagne and light snacks. Tickets $75.",
     link: "https://www.instagram.com/poplarplacenc/"
+  },
+  {
+    title: "An Evening at Ashten's (10th Annual)",
+    date: "2026-09-14",
+    time: "6:00 PM – 9:00 PM",
+    town: "Southern Pines",
+    category: "Community",
+    description: "The 10th annual An Evening at Ashten's — a benefit for Caring Hearts for Canines, held at Ashten's Restaurant & Bar (140 E. New Hampshire Ave). Ages 21+. Tickets on sale August 1.",
+    link: "https://www.caringheartsforcanines.com"
   },
   {
     title: "Autumnfest",
@@ -547,6 +583,42 @@ const BUSINESSES = [
     town: "Cameron",
     category: "Shopping",
     description: "The 'Antiques Capital of North Carolina' — a historic village of antique shops worth a slow afternoon of browsing.",
+    link: ""
+  },
+  {
+    name: "Whataburger",
+    town: "Southern Pines",
+    category: "New in Town",
+    description: "The cult-favorite Texas burger chain just opened at the Target shopping center — a big deal for the Sandhills.",
+    link: ""
+  },
+  {
+    name: "Moore Coffee Company",
+    town: "Carthage",
+    category: "Coffee Shop",
+    description: "A brand-new coffee shop on Courthouse Square — espresso, matcha, chai, Thai tea, New York bagels, and local conchas. Open 7–3, Mon–Sat.",
+    link: ""
+  },
+  {
+    name: "Blue Bird Play Café",
+    town: "Aberdeen",
+    category: "Family",
+    description: "A new indoor play café in Aberdeen — coffee and a comfy spot for grown-ups while the little ones play.",
+    link: "",
+    kids: true
+  },
+  {
+    name: "Old North State & Co.",
+    town: "Southern Pines",
+    category: "Shopping",
+    description: "A new downtown Southern mercantile with candles, decor, kids' goods, and candle-making workshops.",
+    link: ""
+  },
+  {
+    name: "Pizza Cafe",
+    town: "Southern Pines",
+    category: "Pizza",
+    description: "A 32-year Southern Pines staple, now under new local ownership (the Dugan's Pub family) — same pizza, same beloved spot.",
     link: ""
   }
 ];

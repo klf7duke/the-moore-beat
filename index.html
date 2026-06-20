@@ -377,6 +377,7 @@
   <div class="wrap">
     <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
     <p style="margin-top:8px">Your weekly beat on Moore County, NC · <a href="weekend.html">This Weekend</a> · <a href="calendar.html">Calendar</a> · <a href="#eat">Eat &amp; Drink</a> · <a href="#submit">Connect</a></p>
+    <p style="margin-top:12px"><a href="https://www.instagram.com/themoorebeat" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">Follow us on Instagram → @themoorebeat</a></p>
     <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
   </div>
 </footer>
@@ -414,9 +415,21 @@
     }
     return pd(e.date) >= today ? e : null;
   }
+  // Minutes-since-midnight for an event's start time, so same-day events sort earliest-first.
+  function startMinutes(t){
+    if(!t) return 99999;
+    if(/evening/i.test(t)) return 18*60;
+    if(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|all\s*week|all\s*day)/i.test(t)) return 99999;
+    const m = t.match(/(\d{1,2})(?::(\d{2}))?/);
+    if(!m) return 99999;
+    let h = +m[1], min = m[2] ? +m[2] : 0;
+    const ap = t.slice(m.index).match(/([ap])m/i) || t.match(/([ap])m/i);
+    if(ap){ const p = ap[1].toLowerCase(); if(p==="p" && h!==12) h+=12; if(p==="a" && h===12) h=0; }
+    return h*60 + min;
+  }
   const upcoming = (typeof EVENTS!=="undefined"?EVENTS:[])
     .map(nextOccurrence).filter(Boolean)
-    .sort((a,b)=>pd(a.date)-pd(b.date));
+    .sort((a,b)=> pd(a.date)-pd(b.date) || startMinutes(a.time)-startMinutes(b.time));
   const townSel=document.getElementById("townFilter"), catSel=document.getElementById("catFilter");
   [...new Set(upcoming.map(e=>e.town))].sort().forEach(t=>townSel.add(new Option(t,t)));
   [...new Set(upcoming.map(e=>e.category))].sort().forEach(c=>catSel.add(new Option(c,c)));

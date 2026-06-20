@@ -122,6 +122,7 @@
 <section>
   <div class="wrap">
     <div id="kidsGrid"></div>
+    <div id="kidsPlaces"></div>
     <div class="note">
       Don't see a kids' event we should add? <a href="index.html#submit">Send it our way</a> and we'll get it on here.
     </div>
@@ -132,6 +133,7 @@
   <div class="wrap">
     <p style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:#fff;letter-spacing:-.2px">The Moore Beat</p>
     <p style="margin-top:8px"><a href="index.html">Home</a> · <a href="weekend.html">This Weekend</a> · <a href="calendar.html">Calendar</a> · <a href="index.html#eat">Eat &amp; Drink</a></p>
+    <p style="margin-top:12px"><a href="https://www.instagram.com/themoorebeat" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline">Follow us on Instagram → @themoorebeat</a></p>
     <p style="margin-top:12px;opacity:.5">© <span id="year"></span> The Moore Beat. Made for Moore County, NC.</p>
   </div>
 </footer>
@@ -212,6 +214,23 @@
     </div></div>`;
   }).join("") + `</div>`
   : `<p class="none">No kid-friendly events on the calendar right now — check back soon, or browse the <a href="calendar.html">full calendar</a>.</p>`;
+
+  /* ----- Kid-friendly spots (Local Finds flagged kids:true) ----- */
+  const places = (typeof BUSINESSES!=="undefined"?BUSINESSES:[]).filter(b=>b.kids);
+  if(places.length){
+    document.getElementById("kidsPlaces").innerHTML =
+      `<h2 style="font-family:var(--display);font-size:1.6rem;font-weight:600;letter-spacing:-.3px;margin:52px 0 18px">Kid-friendly spots</h2>` +
+      `<div class="grid">` + places.map(b=>{
+        const col = catColor(b.category);
+        const link = b.link?`<a class="more" href="${b.link}" target="_blank" rel="noopener">Visit →</a>`:"";
+        return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+          <span class="tag" style="background:${col}">${b.category}</span>
+          <h3 style="margin:13px 0 3px">${b.name}</h3>
+          <div class="meta">${b.town}</div>
+          <p class="desc">${b.description}</p>${link}
+        </div></div>`;
+      }).join("") + `</div>`;
+  }
 </script>
 </body>
 </html>
