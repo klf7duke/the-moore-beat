@@ -424,6 +424,17 @@ const RESTAURANTS = [
     link: "https://www.redscornersp.com/"
   },
   {
+    name: "Saucy Cravings",
+    town: "Southern Pines",
+    cuisine: "Wings",
+    price: "$",
+    vibe: ["Family", "Outdoor"],
+    happyhour: "",
+    foodTruck: true,
+    description: "A local food truck slinging wings (regular and boneless), fries, and rotating specials like hot honey tenders and pickle fries — often parked at Red's Corner.",
+    link: "https://www.instagram.com/saucy_cravings/"
+  },
+  {
     name: "SoPies Pizza",
     town: "Southern Pines",
     cuisine: "Pizza",

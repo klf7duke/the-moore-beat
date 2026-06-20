@@ -1,5 +1,5 @@
 /* The Moore Beat — service worker (network-first, offline fallback) */
-const CACHE = 'moore-beat-v5';
+const CACHE = 'moore-beat-v6';
 const CORE = [
   './', './index.html', './calendar.html', './weekend.html',
   './happyhour.html', './livemusic.html', './event.html', './kids.html', './events.js',
