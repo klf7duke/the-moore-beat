@@ -184,6 +184,7 @@
       <a href="#eat">Eat &amp; Drink</a>
       <a href="happyhour.html">Happy Hours</a>
       <a href="livemusic.html">Live Music</a>
+      <a href="kids.html">Kids</a>
       <a href="#businesses">Local Finds</a>
       <a href="#submit">Submit</a>
     </nav>
@@ -243,6 +244,18 @@
   </div>
 </div>
 
+<!-- ===================== SPOTLIGHT ===================== -->
+<section id="spotlight" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Spotlight</div>
+      <h2>Don't-Miss Picks</h2>
+      <p>The events we're most excited about right now.</p>
+    </div>
+    <div class="grid" id="spotlightGrid"></div>
+  </div>
+</section>
+
 <!-- ===================== EVENTS ===================== -->
 <section id="events">
   <div class="wrap">
@@ -282,10 +295,22 @@
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">This Week</div>
-      <h2>Happy Hours &amp; Deals</h2>
+      <h2>Happy Hours</h2>
       <p>The week's recurring specials. <a href="happyhour.html" style="font-weight:600">See what's on by day →</a></p>
     </div>
     <div class="grid" id="specialsGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== SALES & DISCOUNTS ===================== -->
+<section id="deals">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Save Local</div>
+      <h2>Sales &amp; Discounts</h2>
+      <p>Current sales, promos, and discounts from Moore County businesses.</p>
+    </div>
+    <div class="grid" id="dealsGrid"></div>
   </div>
 </section>
 
@@ -407,6 +432,26 @@
   }
   townSel.onchange=renderEvents; catSel.onchange=renderEvents; renderEvents();
 
+  /* ----- SPOTLIGHT (featured upcoming events) ----- */
+  const featured = upcoming.filter(e=>e.featured);
+  const spotSection = document.getElementById("spotlight");
+  if(!featured.length){ if(spotSection) spotSection.style.display="none"; }
+  else {
+    document.getElementById("spotlightGrid").innerHTML = featured.slice(0,3).map(e=>{
+      const dt=pd(e.date);
+      const link=e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
+      return `<div class="card" style="border-color:var(--gold);box-shadow:0 12px 32px rgba(201,162,74,.18)"><div class="topline" style="background:var(--gold)"></div><div class="body">
+        <span class="tag" style="background:var(--gold);color:#241c06">★ Spotlight</span>
+        <div class="when">
+          <div class="datebox" style="background:var(--gold);color:#241c06"><div class="d">${dt.getDate()}</div><div class="m">${months[dt.getMonth()]}</div></div>
+          <div><h3 style="margin:0">${e.title}</h3><div class="meta">${fmtDate(e.date)} · ${e.time}</div></div>
+        </div>
+        <div class="meta" style="margin-top:9px">${e.town}</div>
+        <p class="desc">${e.description}</p>${link}
+      </div></div>`;
+    }).join("");
+  }
+
   /* ----- RESTAURANTS ----- */
   const rests=(typeof RESTAURANTS!=="undefined"?RESTAURANTS:[]);
   const cuisineSel=document.getElementById("cuisineFilter"), vibeSel=document.getElementById("vibeFilter"), priceSel=document.getElementById("priceFilter"), eatTownSel=document.getElementById("eatTownFilter");
@@ -448,6 +493,17 @@
       <h3>${s.business}</h3><div class="meta">${s.town}</div>
       <p class="offer">${s.offer}</p>${s.expires?`<p class="exp">Ends ${fmtDate(s.expires)}</p>`:""}
     </div></div>`).join("") : '<p class="empty">No current deals — check back soon.</p>';
+
+  /* ----- DEALS (sales & discounts) ----- */
+  const deals=(typeof DEALS!=="undefined"?DEALS:[]).filter(d=>!d.expires||pd(d.expires)>=today);
+  document.getElementById("dealsGrid").innerHTML = deals.length ? deals.map(d=>{
+    const dl=(d.link && !/instagram\.com|facebook\.com/i.test(d.link)) ? `<a class="more" href="${d.link}" target="_blank" rel="noopener">Details →</a>` : "";
+    return `<div class="card special"><div class="topline" style="background:var(--green)"></div><div class="body">
+      <span class="tag" style="background:var(--green)">Sale</span>
+      <h3>${d.business}</h3><div class="meta">${d.town}</div>
+      <p class="offer">${d.offer}</p>${d.expires?`<p class="exp">Ends ${fmtDate(d.expires)}</p>`:""}${dl}
+    </div></div>`;
+  }).join("") : '<p class="empty" style="grid-column:1/-1">No active sales right now. <strong>Running one?</strong> <a href="#submit">Get it featured free →</a></p>';
 
   /* ----- BUSINESSES ----- */
   const biz=(typeof BUSINESSES!=="undefined"?BUSINESSES:[]);

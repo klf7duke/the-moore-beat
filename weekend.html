@@ -70,6 +70,12 @@
   footer a{color:rgba(255,255,255,.82)}
   footer a:hover{color:#fff}
 
+  /* ---------- Sort / audience controls ---------- */
+  .wk-controls{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:0 0 30px}
+  .wk-controls label{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:8px}
+  .wk-controls select{font-family:inherit;font-size:.92rem;font-weight:600;color:var(--ink);text-transform:none;letter-spacing:0;padding:8px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;cursor:pointer}
+  .wk-controls select:focus{outline:none;border-color:var(--green)}
+
   /* ---------- Mobile menu ---------- */
   .menu-btn{display:none;background:#fff;border:1px solid var(--line);border-radius:9px;width:44px;height:44px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
   .menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
@@ -118,6 +124,7 @@
       <a href="index.html#eat">Eat &amp; Drink</a>
       <a href="happyhour.html">Happy Hours</a>
       <a href="livemusic.html">Live Music</a>
+      <a href="kids.html">Kids</a>
       <a href="index.html#businesses">Local Finds</a>
     </nav>
     <button class="menu-btn" aria-label="Open menu" onclick="this.classList.toggle('open');document.getElementById('navMenu').classList.toggle('open')"><span></span><span></span><span></span></button>
@@ -135,6 +142,21 @@
 
 <section>
   <div class="wrap">
+    <div class="wk-controls">
+      <label>Sort by
+        <select id="sortSel">
+          <option value="time">Start time</option>
+          <option value="category">Category</option>
+        </select>
+      </label>
+      <label>Show
+        <select id="audSel">
+          <option value="all">Everyone</option>
+          <option value="family">Family-friendly</option>
+          <option value="adult">Adult / nightlife</option>
+        </select>
+      </label>
+    </div>
     <div id="weekend"></div>
     <div class="footcta">
       <h3>Looking further out?</h3>
@@ -201,30 +223,62 @@
   const todayStr = keyOf(today);
   const container = document.getElementById("weekend");
 
-  container.innerHTML = days.map(d=>{
-    const ds = keyOf(d);
-    const evs = eventsOnDay(ds);
-    const isToday = ds===todayStr;
-    const cards = evs.length ? `<div class="grid">` + evs.map(e=>{
-      const col = catColor(e.category);
-      const link = e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
-      return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
-        <span class="tag" style="background:${col}">${e.category}</span>
-        <h3>${e.title}</h3>
-        <div class="meta">${e.time} · ${e.town}</div>
-        <p class="desc">${e.description}</p>${link}
-      </div></div>`;
-    }).join("") + `</div>`
-    : `<p class="none">Nothing on the calendar yet — check back, or browse the full calendar.</p>`;
-    return `<div class="day-block">
-      <div class="day-head">
-        <h2>${fmtDay(d)}</h2>
-        ${isToday?'<span class="today-pill">Today</span>':''}
-        <span class="cnt">${evs.length} event${evs.length===1?"":"s"}</span>
-      </div>
-      ${cards}
-    </div>`;
-  }).join("");
+  let wkSort = "time";       // "time" | "category"
+  let wkAudience = "all";    // "all" | "family" | "adult"
+  function startMinutes(t){
+    if(!t) return 99999;
+    if(/evening/i.test(t)) return 18*60;
+    if(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|all\s*week|all\s*day)/i.test(t)) return 99999;
+    const m = t.match(/(\d{1,2})(?::(\d{2}))?/);
+    if(!m) return 99999;
+    let h = +m[1], min = m[2] ? +m[2] : 0;
+    const ap = t.slice(m.index).match(/([ap])m/i) || t.match(/([ap])m/i);
+    if(ap){ const p = ap[1].toLowerCase(); if(p==="p" && h!==12) h+=12; if(p==="a" && h===12) h=0; }
+    return h*60 + min;
+  }
+  function audienceOf(e){
+    if(e.audience) return e.audience;
+    if(/karaoke|\bdj\b|dance party|pool tournament/i.test(e.title)) return "adult";
+    if(["Family","Market","Festival"].includes(e.category)) return "family";
+    const sm = startMinutes(e.time);
+    if(sm === 99999) return "family";
+    return sm >= 21*60 ? "adult" : "family";
+  }
+
+  function renderWeekend(){
+    container.innerHTML = days.map(d=>{
+      const ds = keyOf(d);
+      let evs = eventsOnDay(ds);
+      if(wkAudience!=="all") evs = evs.filter(e=>audienceOf(e)===wkAudience);
+      evs = evs.slice().sort(wkSort==="category"
+        ? (a,b)=> a.category.localeCompare(b.category) || startMinutes(a.time)-startMinutes(b.time)
+        : (a,b)=> startMinutes(a.time)-startMinutes(b.time) || a.title.localeCompare(b.title));
+      const isToday = ds===todayStr;
+      const cards = evs.length ? `<div class="grid">` + evs.map(e=>{
+        const col = catColor(e.category);
+        const link = e.link?`<a class="more" href="event.html?t=${encodeURIComponent(e.title)}&d=${e.date}">More info →</a>`:"";
+        return `<div class="card"><div class="topline" style="background:${col}"></div><div class="body">
+          <span class="tag" style="background:${col}">${e.category}</span>
+          <h3>${e.title}</h3>
+          <div class="meta">${e.time} · ${e.town}</div>
+          <p class="desc">${e.description}</p>${link}
+        </div></div>`;
+      }).join("") + `</div>`
+      : `<p class="none">${wkAudience!=="all" ? "No "+(wkAudience==="adult"?"adult / nightlife":"family-friendly")+" events listed for this day." : "Nothing on the calendar yet — check back, or browse the full calendar."}</p>`;
+      return `<div class="day-block">
+        <div class="day-head">
+          <h2>${fmtDay(d)}</h2>
+          ${isToday?'<span class="today-pill">Today</span>':''}
+          <span class="cnt">${evs.length} event${evs.length===1?"":"s"}</span>
+        </div>
+        ${cards}
+      </div>`;
+    }).join("");
+  }
+
+  document.getElementById("sortSel").onchange = e=>{ wkSort = e.target.value; renderWeekend(); };
+  document.getElementById("audSel").onchange = e=>{ wkAudience = e.target.value; renderWeekend(); };
+  renderWeekend();
 </script>
 </body>
 </html>

@@ -15,6 +15,12 @@
    The homepage shows the next upcoming occurrence; the Calendar page shows
    every occurrence on its day.
 
+   OPTIONAL EVENT FLAGS:
+       featured: true                 // highlights it in the homepage Spotlight
+       audience: "family" | "adult"   // powers the Calendar's family/adult filter.
+                                      // If omitted, late-night and bar/karaoke/DJ
+                                      // events default to "adult", everything else "family".
+
    WANT CLAUDE TO UPDATE IT? Just ask, e.g.
      "Add this weekend's Moore County events to my site."
      "Pull the new shows from the Sunrise Theater calendar."
@@ -171,7 +177,8 @@ const EVENTS = [
     town: "Southern Pines",
     category: "Music",
     description: "A free outdoor concert on the Sunrise Lawn with cold brews from R&D Brewing and local food trucks — bring the whole family.",
-    link: "https://sunrisetheater.com/music"
+    link: "https://sunrisetheater.com/music",
+    featured: true
   },
   {
     title: "Peach Week",
@@ -180,7 +187,8 @@ const EVENTS = [
     town: "Moore County",
     category: "Festival",
     description: "The CVB's countywide celebration of all things peach — a restaurant competition, food truck battle, 5K fun run, car show, specialty drinks, and kids' activities across the Sandhills.",
-    link: "https://homeofgolf.com/peach-week/"
+    link: "https://homeofgolf.com/peach-week/",
+    featured: true
   },
   {
     title: "Peach Pathways Scavenger Hunt",
@@ -457,6 +465,66 @@ const RESTAURANTS = [
     happyhour: "",
     description: "Veteran-owned Aberdeen brewery with a solid house lineup and a laid-back taproom.",
     link: "https://www.railhousebrewery.com/"
+  },
+  {
+    name: "Elliott's on Linden",
+    town: "Pinehurst",
+    cuisine: "American",
+    price: "$$$",
+    vibe: ["Date Night", "Farm-to-Table"],
+    happyhour: "",
+    description: "A longtime Pinehurst favorite for upscale farm-to-table American cooking, with plenty of gluten-free and lighter options.",
+    link: ""
+  },
+  {
+    name: "195 American Fusion",
+    town: "Southern Pines",
+    cuisine: "American Fusion",
+    price: "$$$",
+    vibe: ["Date Night"],
+    happyhour: "",
+    description: "Upscale American fusion with global influences and a well-regarded wine and cocktail list in downtown Southern Pines.",
+    link: ""
+  },
+  {
+    name: "Thai Orchid",
+    town: "Southern Pines",
+    cuisine: "Thai",
+    price: "$$",
+    vibe: ["Family"],
+    happyhour: "",
+    description: "A longtime local go-to for Thai curries, noodles, and stir-fry in Southern Pines.",
+    link: ""
+  },
+  {
+    name: "Sweet Basil",
+    town: "Southern Pines",
+    cuisine: "Cafe",
+    price: "$",
+    vibe: ["Brunch", "Family"],
+    happyhour: "",
+    description: "A bustling downtown lunch spot known for fresh sandwiches, soups, and salads.",
+    link: ""
+  },
+  {
+    name: "Dugan's Pub",
+    town: "Pinehurst",
+    cuisine: "Irish Pub",
+    price: "$$",
+    vibe: ["Late Night", "Craft Beer"],
+    happyhour: "",
+    description: "A friendly Irish-style pub in the Village with hearty pub fare, beers on tap, and live entertainment.",
+    link: ""
+  },
+  {
+    name: "The Ice Cream Parlor",
+    town: "Southern Pines",
+    cuisine: "Dessert",
+    price: "$",
+    vibe: ["Family"],
+    happyhour: "",
+    description: "A beloved old-fashioned ice cream parlor and sandwich shop — a Southern Pines institution for generations.",
+    link: ""
   }
 ];
 
@@ -533,3 +601,15 @@ const MUSIC_VENUES = [
     link: "https://villaggioristorante.net/"
   }
 ];
+
+/* =====================================================================
+   SALES & DISCOUNTS  (the homepage "Sales & Discounts" section)
+   Store sales, promos, and discounts — separate from the bar Happy Hours.
+   { business, town, offer, expires:"YYYY-MM-DD" (or "" if ongoing), link:"" }
+   Set "expires" to auto-hide a limited-time sale after that date.
+   Example:
+     { business: "Sandhills Hardware", town: "Aberdeen",
+       offer: "15% off all garden supplies", expires: "2026-07-15", link: "" }
+   ===================================================================== */
+
+const DEALS = [];
