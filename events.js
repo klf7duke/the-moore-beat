@@ -92,6 +92,12 @@ const EVENTS = [
   { title: "Corey Comer at Railhouse", date: "2026-06-21", time: "2–5 PM", town: "Aberdeen", category: "Music", description: "Sunday afternoon live music at Railhouse.", link: "https://www.instagram.com/sopinesscene/", livemusic: true },
   { title: "Tim Wilson at BHAWK Distillery", date: "2026-06-21", time: "5–8 PM", town: "Southern Pines", category: "Music", description: "Sunday live music at BHAWK Distillery.", link: "https://www.instagram.com/sopinesscene/", livemusic: true },
   { title: "DJ Brandon Cox & DJ Van Horton at 1901 Lounge", date: "2026-06-21", time: "1–7 PM", town: "Southern Pines", category: "Music", description: "Sunday DJ sets at 1901 Lounge.", link: "https://www.instagram.com/sopinesscene/" },
+
+  { title: "Saucy Cravings at Red's Corner", date: "2026-06-20", time: "11 AM – 8 PM", town: "Southern Pines", category: "Food & Drink", description: "The Saucy Cravings food truck is serving at Red's Corner all day. Open daily 11 AM–8 PM, Saturday June 20 through Wednesday June 24.", link: "https://www.redscornersp.com/" },
+  { title: "Saucy Cravings at Red's Corner", date: "2026-06-21", time: "11 AM – 8 PM", town: "Southern Pines", category: "Food & Drink", description: "The Saucy Cravings food truck is serving at Red's Corner all day. Open daily 11 AM–8 PM, Saturday June 20 through Wednesday June 24.", link: "https://www.redscornersp.com/" },
+  { title: "Saucy Cravings at Red's Corner", date: "2026-06-22", time: "11 AM – 8 PM", town: "Southern Pines", category: "Food & Drink", description: "The Saucy Cravings food truck is serving at Red's Corner all day. Open daily 11 AM–8 PM, Saturday June 20 through Wednesday June 24.", link: "https://www.redscornersp.com/" },
+  { title: "Saucy Cravings at Red's Corner", date: "2026-06-23", time: "11 AM – 8 PM", town: "Southern Pines", category: "Food & Drink", description: "The Saucy Cravings food truck is serving at Red's Corner all day. Open daily 11 AM–8 PM, Saturday June 20 through Wednesday June 24.", link: "https://www.redscornersp.com/" },
+  { title: "Saucy Cravings at Red's Corner", date: "2026-06-24", time: "11 AM – 8 PM", town: "Southern Pines", category: "Food & Drink", description: "The Saucy Cravings food truck is serving at Red's Corner all day. Open daily 11 AM–8 PM, Saturday June 20 through Wednesday June 24.", link: "https://www.redscornersp.com/" },
   {
     title: "Father's Day @ The Workshop",
     date: "2026-06-21",
@@ -359,6 +365,10 @@ const SPECIALS = [
    Real Moore County spots. price: "$", "$$", or "$$$".
    vibe: short chips — "Date Night","Patio","Live Music","Family",
          "Brunch","Craft Beer","Late Night","Farm-to-Table","Outdoor"
+   foodTruck: OPTIONAL. Add  foodTruck: true  to a spot that is a food
+         truck / food-truck park. Leave it off for normal sit-down spots —
+         a missing field counts as brick-and-mortar. Drives the Eat & Drink
+         "Food trucks / Brick-and-mortar" filter.
    ===================================================================== */
 
 const RESTAURANTS = [
@@ -409,6 +419,7 @@ const RESTAURANTS = [
     price: "$",
     vibe: ["Family", "Live Music", "Outdoor", "Craft Beer"],
     happyhour: "",
+    foodTruck: true,
     description: "A food-truck park and beer garden with a rotating lineup, kids' play area, karaoke, and live music.",
     link: "https://www.redscornersp.com/"
   },
