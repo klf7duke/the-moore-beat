@@ -192,6 +192,15 @@ const EVENTS = [
     link: "https://homeofgolf.com/peach-week/peach-pathways/"
   },
   {
+    title: "Pista sa Nayon (Fiesta in the Village)",
+    date: "2026-07-20",
+    time: "3:00 PM – 8:00 PM",
+    town: "Southern Pines",
+    category: "Festival",
+    description: "A summer fiesta hosted by the Filipino American Bayanihan Community of North Carolina at the Southern Pines Armory. Guests receive a boxed lunch of traditional Filipino foods, followed by an afternoon of dancing, music, and games. Event director: Sol Lalic.",
+    link: "https://www.thepilot.com/"
+  },
+  {
     title: "Peach Week Restaurant Competition",
     date: "2026-07-22",
     time: "July 22 – 26",

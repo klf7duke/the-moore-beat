@@ -270,6 +270,7 @@
     <div class="filters">
       <select id="cuisineFilter"><option value="">All cuisines</option></select>
       <select id="vibeFilter"><option value="">All vibes</option></select>
+      <select id="priceFilter"><option value="">Any price</option></select>
       <select id="eatTownFilter"><option value="">All towns</option></select>
     </div>
     <div class="grid" id="eatGrid"></div>
@@ -408,16 +409,20 @@
 
   /* ----- RESTAURANTS ----- */
   const rests=(typeof RESTAURANTS!=="undefined"?RESTAURANTS:[]);
-  const cuisineSel=document.getElementById("cuisineFilter"), vibeSel=document.getElementById("vibeFilter"), eatTownSel=document.getElementById("eatTownFilter");
+  const cuisineSel=document.getElementById("cuisineFilter"), vibeSel=document.getElementById("vibeFilter"), priceSel=document.getElementById("priceFilter"), eatTownSel=document.getElementById("eatTownFilter");
   [...new Set(rests.map(r=>r.cuisine))].sort().forEach(c=>cuisineSel.add(new Option(c,c)));
   [...new Set(rests.flatMap(r=>r.vibe))].sort().forEach(v=>vibeSel.add(new Option(v,v)));
+  // Price tiers are derived from the data and ordered cheap → pricey ($, $$, $$$).
+  const PRICE_LABELS={"$":"$ · Budget","$$":"$$ · Mid","$$$":"$$$ · Splurge"};
+  [...new Set(rests.map(r=>r.price).filter(Boolean))].sort((a,b)=>a.length-b.length)
+    .forEach(p=>priceSel.add(new Option(PRICE_LABELS[p]||p,p)));
   [...new Set(rests.map(r=>r.town))].sort().forEach(t=>eatTownSel.add(new Option(t,t)));
   const cuisineList=[...new Set(rests.map(r=>r.cuisine))];
   const cuisineColor=c=>PALETTE[cuisineList.indexOf(c)%PALETTE.length];
 
   function renderEats(){
-    const cu=cuisineSel.value, vi=vibeSel.value, tw=eatTownSel.value;
-    const list=rests.filter(r=>(!cu||r.cuisine===cu)&&(!vi||r.vibe.includes(vi))&&(!tw||r.town===tw));
+    const cu=cuisineSel.value, vi=vibeSel.value, pr=priceSel.value, tw=eatTownSel.value;
+    const list=rests.filter(r=>(!cu||r.cuisine===cu)&&(!vi||r.vibe.includes(vi))&&(!pr||r.price===pr)&&(!tw||r.town===tw));
     const grid=document.getElementById("eatGrid");
     if(!list.length){grid.innerHTML='<p class="empty">No spots match — try clearing the filters.</p>';return;}
     grid.innerHTML=list.map(r=>{
@@ -433,7 +438,7 @@
         <div class="vibes">${vibes}</div>${hh}${link}</div></div>`;
     }).join("");
   }
-  cuisineSel.onchange=renderEats; vibeSel.onchange=renderEats; eatTownSel.onchange=renderEats; renderEats();
+  cuisineSel.onchange=renderEats; vibeSel.onchange=renderEats; priceSel.onchange=renderEats; eatTownSel.onchange=renderEats; renderEats();
 
   /* ----- SPECIALS ----- */
   const specials=(typeof SPECIALS!=="undefined"?SPECIALS:[]).filter(s=>!s.expires||pd(s.expires)>=today);

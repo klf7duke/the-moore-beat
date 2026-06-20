@@ -50,6 +50,15 @@
   .cal-nav button:hover{background:var(--green);color:#fff;border-color:var(--green)}
   .cal-nav .today-btn{width:auto;padding:0 16px;font-size:.85rem;font-weight:700}
 
+  /* category filter */
+  .filter-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+  .filter-label{font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-right:2px}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;transition:.15s;user-select:none}
+  .chip:hover{border-color:var(--green)}
+  .chip .cdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .chip.active{color:#fff;border-color:transparent}
+  .chip.active .cdot{box-shadow:0 0 0 2px rgba(255,255,255,.55)}
+
   .weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
   .weekdays div{text-align:center;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:4px 0}
   .days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
@@ -162,6 +171,7 @@
         <button id="nextBtn" aria-label="Next month">›</button>
       </div>
     </div>
+    <div class="filter-bar" id="catFilter"></div>
     <div class="weekdays">
       <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
     </div>
@@ -208,6 +218,41 @@
     });
   }
 
+  // ---- Category filter ----
+  // Category list is derived from the EVENTS data so it stays in sync.
+  // Ordered by CAT_COLORS for a consistent look, with any extras appended.
+  const presentCats = [...new Set(ALL.map(e=>e.category).filter(Boolean))];
+  const CATS = presentCats.sort((a,b)=>{
+    const order = Object.keys(CAT_COLORS);
+    const ia = order.indexOf(a), ib = order.indexOf(b);
+    return (ia<0?999:ia) - (ib<0?999:ib) || a.localeCompare(b);
+  });
+  const activeCats = new Set();                       // empty = show all
+  const catPass = e => activeCats.size===0 || activeCats.has(e.category);
+  const visibleOnDay = ds => eventsOnDay(ds).filter(catPass);
+
+  function renderFilter(){
+    const bar = document.getElementById("catFilter");
+    const chip = (label, cat, isActive) => {
+      const col = cat ? catColor(cat) : "var(--green)";
+      const style = isActive ? `style="background:${col}"` : "";
+      const dot = cat ? `<span class="cdot" style="background:${isActive?'#fff':col}"></span>` : "";
+      return `<button type="button" class="chip${isActive?" active":""}" data-cat="${cat||""}" ${style}>${dot}${label}</button>`;
+    };
+    bar.innerHTML = `<span class="filter-label">Filter:</span>`
+      + chip("All", "", activeCats.size===0)
+      + CATS.map(c => chip(c, c, activeCats.has(c))).join("");
+    bar.querySelectorAll(".chip").forEach(btn=>{
+      btn.onclick = ()=>{
+        const cat = btn.getAttribute("data-cat");
+        if(!cat){ activeCats.clear(); }                 // "All" resets
+        else if(activeCats.has(cat)){ activeCats.delete(cat); }
+        else { activeCats.add(cat); }
+        renderFilter(); renderMonth(); renderPanel();
+      };
+    });
+  }
+
   const now = new Date();
   let viewY = now.getFullYear();
   let viewM = now.getMonth();           // 0-based
@@ -227,7 +272,7 @@
     }
     for(let d=1; d<=daysInMonth; d++){
       const ds = key(viewY, viewM, d);
-      const evs = eventsOnDay(ds);
+      const evs = visibleOnDay(ds);
       const cell = document.createElement("div");
       cell.className = "day" + (evs.length?" has":"") + (ds===todayStr?" today":"") + (ds===selected?" selected":"");
       let html = `<div class="num">${d}</div>`;
@@ -244,10 +289,13 @@
 
   function renderPanel(){
     const panel = document.getElementById("dayPanel");
-    const evs = eventsOnDay(selected);
+    const evs = visibleOnDay(selected);
     let html = `<div class="eyebrow">Selected Day</div><h3>${fmtLong(selected)}</h3>`;
     if(!evs.length){
-      html += `<p class="none">No events listed for this day. Pick a day with a colored dot, or check back as new events are added.</p>`;
+      const filterNote = activeCats.size
+        ? `No ${[...activeCats].join(" / ")} events on this day. Try “All” or another category.`
+        : `No events listed for this day. Pick a day with a colored dot, or check back as new events are added.`;
+      html += `<p class="none">${filterNote}</p>`;
     } else {
       html += `<div class="grid">` + evs.map(e=>{
         const col = catColor(e.category);
@@ -271,6 +319,7 @@
     renderMonth(); renderPanel();
   };
 
+  renderFilter();
   renderMonth();
   renderPanel();
 </script>
