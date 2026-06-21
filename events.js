@@ -186,6 +186,15 @@ const EVENTS = [
     link: "https://www.freddys.com/"
   },
   {
+    title: "Women's 101 Clinic",
+    date: "2026-06-28",
+    time: "4:00 PM – 6:00 PM",
+    town: "Southern Pines",
+    category: "Sports",
+    description: "A women's intro golf clinic at Double Eagle — swing assessment, putting practice, and like-minded women. Clubs provided, no experience necessary. Registration open: call the Starter Shack or use the link in their bio.",
+    link: "https://www.instagram.com/doubleeaglenc/"
+  },
+  {
     title: "First Friday Concert on the Sunrise Lawn",
     date: "2026-07-03",
     time: "5:00 PM – 9:00 PM",
